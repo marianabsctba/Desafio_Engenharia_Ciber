@@ -358,6 +358,14 @@ p{font-size:1.02rem;line-height:1.7;color:var(--ink)}
   position:relative;z-index:1;
 }
 .options{display:grid;gap:8px;margin-top:10px}
+
+.option{
+min-height:78px;
+display:flex;
+align-items:center;
+line-height:1.45;
+}
+
 .option{
   padding:11px 13px;border-radius:2px;
   border:1px solid rgba(90,58,26,.22);
@@ -551,6 +559,29 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
   height:3px;background:linear-gradient(90deg,transparent,rgba(140,90,20,.3),transparent);
   margin:8px 0;
 }
+
+/* ── IMMERSION UPGRADES ── */
+.maturity-board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0;position:relative;z-index:1}
+.meter{background:rgba(255,255,255,.32);border:1px solid rgba(90,58,26,.24);padding:10px;border-radius:2px}
+.meter b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--coffee2);margin-bottom:7px}
+.meter span{display:block;height:8px;background:rgba(0,0,0,.14);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,#8a6820,#7a1515);width:50%}
+.inbox{display:grid;gap:9px;margin:14px 0;position:relative;z-index:1}
+.email-card{background:rgba(255,255,255,.34);border:1px solid rgba(90,58,26,.24);border-left:4px solid var(--rust);padding:12px;border-radius:2px}
+.email-card .subject{font-weight:900;color:var(--red);font-size:.92rem}
+.email-card .from{font-size:.82rem;color:var(--coffee2);margin:3px 0 6px;font-style:italic}
+.pdf-toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;background:#2b2118;color:#ead8ae;padding:8px 10px;border-radius:2px;margin-bottom:12px;font-family:'Courier New',monospace;font-size:.82rem}
+.pdf-pages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pdf-page{background:rgba(255,255,255,.34);border:1px solid rgba(90,58,26,.2);padding:12px;min-height:140px}
+.pdf-page h4{margin:0 0 7px;color:var(--blue)}
+.chaos-pop{position:fixed;right:18px;bottom:18px;z-index:99;max-width:330px;background:#1e1509;color:#f0e0b0;border:1px solid #a07820;box-shadow:0 18px 40px rgba(0,0,0,.42);padding:13px 14px;border-radius:3px;display:none}
+.chaos-pop.show{display:block;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px) rotate(-1deg)}to{opacity:1;transform:none}}
+.whybox{margin-top:10px;border-top:1px dotted rgba(90,58,26,.35);padding-top:10px;font-weight:400;line-height:1.55}
+.arch-score{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.arch-score div{background:rgba(255,255,255,.3);border:1px solid rgba(90,58,26,.2);padding:8px;text-align:center;font-size:.82rem}
+@media(max-width:720px){.maturity-board,.pdf-pages,.arch-score{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -578,6 +609,13 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
       <p><b>Nível de dificuldade:</b> hardcore enterprise. Muitas alternativas parecem defensáveis. O desafio é descobrir a mais madura para aquele contexto operacional específico.</p>
       <p>Você passa por dias de trabalho em um caso fictício. Cada fase mede uma competência diferente: escuta, leitura de RFP, arquitetura, comunicação, priorização e defesa técnica.</p>
       <div class="note"><b>Regra de ouro:</b> quase todas as alternativas parecem corretas. A pontuação vem da alternativa mais adequada ao contexto, maturidade e risco do cliente.</div>
+      <div class="maturity-board">
+        <div class="meter"><b>Risco</b><span><i style="width:78%"></i></span></div>
+        <div class="meter"><b>Budget</b><span><i style="width:38%"></i></span></div>
+        <div class="meter"><b>Equipe</b><span><i style="width:31%"></i></span></div>
+        <div class="meter"><b>Ruído</b><span><i style="width:82%"></i></span></div>
+        <div class="meter"><b>Maturidade</b><span><i style="width:42%"></i></span></div>
+      </div>
       <p>O certificado só libera após concluir todas as fases com aproveitamento mínimo de 70%.</p>
     </div>
   </div>
@@ -613,6 +651,11 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
         <div class="speech client"><span class="speaker">Jurídico</span>"Precisamos evidência de acesso privilegiado, rastreabilidade e retenção. E por favor não prometam 'risco zero' na apresentação. Da outra vez isso envelheceu muito rápido."</div>
         <div class="speech fin"><span class="speaker">Diretoria</span>"Ah... e o fornecedor anterior falou que precisava de SIEM, SOAR, UEBA, NDR, XDR, CASB, DSPM, CNAPP e talvez um satélite em órbita baixa. Isso procede?"</div>
       </div>
+      <div class="inbox">
+        <div class="email-card"><div class="subject">RE: RE: RE: VPN segunda-feira</div><div class="from">De: Roberto Infra</div><div>Se puderem resolver antes das 08h, eu agradeço. Se não puderem, eu também agradeço, mas chorando.</div></div>
+        <div class="email-card"><div class="subject">Evidências para auditoria</div><div class="from">De: Carla Jurídico</div><div>Precisamos demonstrar quem acessou o quê, quando, com qual privilégio e por qual motivo. Print de tela não é estratégia de governança.</div></div>
+        <div class="email-card"><div class="subject">IA na segurança</div><div class="from">De: Eduardo Diretoria</div><div>Podemos colocar no slide que a solução usa IA? Não precisa explicar muito. Aliás, melhor explicar, mas sem assustar o financeiro.</div></div>
+      </div>
       <div id="q-day0"></div>
       <button class="btn" onclick="finishDay(0)">Concluir Dia 1</button>
       </div>
@@ -623,18 +666,20 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
       <div class="meta"><span>Dia 2</span><span>RFP</span><span>Leitura com lupa e desconfiança</span></div>
       <h2>A RFP chegou em PDF. O anexo contradiz o objeto. Tradição nacional.</h2>
       <div class="pdfsim">
-        <h3>RFP ... versão FINAL_v12_agoraVai.pdf</h3>
-        <div class="clause"><b>Objeto:</b> contratação de solução integrada de segurança, observabilidade, resposta, governança e sustentação operacional para ambiente híbrido.</div>
-        <div class="clause"><b>Usuários:</b> 420 colaboradores, 110 terceiros, 35 contas privilegiadas, 280 endpoints Windows/Linux, 35 servidores virtualizados, 8 aplicações críticas.</div>
-        <div class="clause"><b>Cloud:</b> pequeno ambiente híbrido com workloads públicos e VPN site-to-site.</div>
-        <div class="clause"><b>Compliance:</b> LGPD, auditoria anual, rastreabilidade de acessos privilegiados e retenção mínima de evidências.</div>
-        <div class="clause"><b>Operação:</b> equipe interna composta por 3 pessoas; sem SOC dedicado; atendimento crítico fora do horário comercial.</div>
-        <div class="clause"><b>Rede:</b> dois links internet, firewall legado sem HA, VPN frequentemente saturada, ausência de inventário confiável.</div>
-        <div class="clause"><b>Exigências:</b> gestão de vulnerabilidades, proteção endpoint, resposta a incidentes, visibilidade centralizada, segmentação mínima, proteção de aplicações web e redução de exposição.</div>
-        <div class="clause"><b>Pegadinha clássica:</b> a RFP exige SIEM, SOAR, UEBA, NDR, DLP, CASB, DSPM, CNAPP, IA, automação total e retenção massiva... sem aumentar equipe.</div>
-        <div class="clause"><b>Anexo financeiro:</b> "priorizar quick wins e baixo impacto operacional no primeiro ano".</div>
+        <div class="pdf-toolbar"><span>📄 RFP_FINAL_v12_agoraVai.pdf</span><span>12 páginas | anexo financeiro | risco alto de contradição</span></div>
+        <div class="pdf-pages">
+          <div class="pdf-page"><h4>Página 1 ... Objeto</h4><div class="clause">Contratação de solução integrada para segurança, observabilidade, resposta, governança e sustentação operacional de ambiente híbrido.</div><div class="clause">A solução deverá reduzir exposição, melhorar rastreabilidade e apoiar resposta a incidentes.</div></div>
+          <div class="pdf-page"><h4>Página 2 ... Ambiente</h4><div class="clause">420 colaboradores, 110 terceiros, 35 contas privilegiadas, 280 endpoints, 35 servidores, 8 aplicações críticas, cloud pequeno e VPN site-to-site.</div><div class="clause">Equipe interna: 3 profissionais sem SOC dedicado.</div></div>
+          <div class="pdf-page"><h4>Página 5 ... Segurança</h4><div class="clause">Requer proteção endpoint, gestão de vulnerabilidades, WAF para aplicações críticas, PAM, visibilidade centralizada e playbooks mínimos.</div><div class="clause">Deseja IA, UEBA, NDR, CASB, DLP, DSPM, CNAPP e SOAR com automação ampla.</div></div>
+          <div class="pdf-page"><h4>Página 8 ... Logs</h4><div class="clause">Retenção solicitada: 180 dias para eventos críticos e 365 dias para trilhas de acesso privilegiado.</div><div class="clause">Anexo técnico informa storage limitado e ausência de cálculo de EPS. Sim, alguém assinou isso.</div></div>
+          <div class="pdf-page"><h4>Página 10 ... Operação</h4><div class="clause">Baixo impacto operacional no primeiro ano. Não haverá aumento de equipe.</div><div class="clause">Atendimento crítico fora do horário comercial e relatórios mensais para comitê executivo.</div></div>
+          <div class="pdf-page"><h4>Página 12 ... Financeiro</h4><div class="clause">Priorizar quick wins, baixo risco de implantação, fases mensuráveis e justificativa clara de ROI.</div><div class="clause">A contratação deverá evitar dependência operacional excessiva e consoles sem dono definido.</div></div>
+        </div>
       </div>
-      <div id="q-day1"></div>
+      
+<div class="note"><b>Novo contexto operacional:</b> o cliente possui janela de manutenção reduzida, pressão política por “resultado rápido”, aplicações legadas sem documentação e histórico de projetos abandonados após onboarding inicial. Nem toda tecnologia que cabe tecnicamente cabe operacionalmente.</div>
+
+<div id="q-day1"></div>
       <button class="btn" onclick="finishDay(1)">Concluir Dia 2</button>
       </div>
     </section>
@@ -643,7 +688,7 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
       <div class="page-inner">
       <div class="meta"><span>Dia 3</span><span>Arquitetura</span><span>Drag and drop</span></div>
       <h2>O Visio da dor: monte uma arquitetura sem criar um monumento ao excesso.</h2>
-      <p>Arraste os componentes para as zonas adequadas. Não precisa usar tudo. Usar tudo é exatamente como nasce um ambiente impossível de operar.</p>
+      <p>Arraste os componentes para as zonas adequadas. Nem toda tecnologia necessária deve entrar na primeira fase. O desafio é equilibrar cobertura, operação, ruído, dependência e capacidade real do time.</p>
       <div class="board">
         <div class="palette" id="palette"></div>
         <div class="canvas">
@@ -719,87 +764,20 @@ input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255
   </main>
 </section>
 </div>
+<div id="chaosPop" class="chaos-pop"></div>
 <div class="footer">A Call Que Poderia Ter Sido Um E-mail ... Mariana BS .Inc</div>
 
 <script>
 const SALT="MBSCI_2026_DIARIO_CAFE_FRIO_";
 const enc=s=>btoa(unescape(encodeURIComponent([...s].map((c,i)=>String.fromCharCode(c.charCodeAt(0)^SALT.charCodeAt(i%SALT.length))).join(""))));
 const dec=s=>[...decodeURIComponent(escape(atob(s)))].map((c,i)=>String.fromCharCode(c.charCodeAt(0)^SALT.charCodeAt(i%SALT.length))).join("");
-const COMMENT_BANK={
- good: enc("Correto. A decisão considera maturidade operacional, volumetria, capacidade de sustentação e risco real do ambiente. Segurança sem contexto vira coleção de dashboards."),
- bad: enc("Plausível... mas incompleto para o cenário. A alternativa ignora dependências operacionais, equipe disponível ou priorização de risco.")
-};
+const ARCH_MSG={ok:"DDAiNiArV0RHRD5kKi43OyoxNyRoZQkpMcKjbzwiICEqPH9CVUDDmzIhPTM9ZW86LSU2KjYoJmVvLz8rJSolwrZVWV0afygmJiFpPy0sMSk3PC89Jy42Pm5zMyU+S1JdWTQ3ZWEkPCMxJjMnJzYqOy0uOygxcyZpNlxGV1grwqU7KD1pPDouYSMoLzMgOy4tbTY2ICcwXl9VXz43aSAkKCHCuCIlJzZ/IjckLjY+YiMiOz4SRV9XfyE4NDs5Kn8nJGYxLcKsIWk/Oj4xPCI6cRJ1QUU6ZC0kISwhNyxhNCAsNjcgOz5tLzI3PC1bVFNSOmhpMzs6LDBjJGYqLyMgKMKowrwibA==",bad:"DCs9Jyh/WsORElo+JzwvM2kgKmMkPiY6NSEmYX8MYjIxOCpbRFdCKjYoYSI7KjwqMidlOjcnICM2LzAyMWkIc3YSU38CIDM3Pi4zL2EOBH8oPWk/Oj/Crz4mPS1dHBJzGxZmGRYbbzpjEQcIfyM/aSY7KCwnKi0+VlUdUzEgOS47JztzYw0pIjgvPC5gDAQHHmM5LV1AXUQ8LSYvMyVvOmMRKiQmJD0mJCxtLDxjGhBxHBJgEmQsYRsnOTotNcKnNzYpciwifyAjJzY7NlZRVlNxZAw3Oz0qfxAOBxd/JyQoIcK4LCY8b2kcc2NwFjwrJDE+LDswb2EIAQ1mJiY7PiFiNmMNE2IQRlkrJSVhPCw8KyJhICQsI3w="};
 const E={
- q0: enc(JSON.stringify([
-  {t:"Qual leitura mais madura da call?",a:[
-   ["Iniciar por controles críticos, visibilidade proporcional, identidade privilegiada e evolução operacional gradual.",10],
-   ["Centralizar telemetria, ampliar detecção e criar camadas avançadas já na primeira fase do projeto.",6],
-   ["Concentrar orçamento em borda e disponibilidade antes de expandir monitoramento e governança.",5],
-   ["Adotar suíte integrada com múltiplos módulos para reduzir fragmentação futura da operação.",4]
-  ]},
-  {t:"O que perguntar antes de propor tecnologia?",a:[
-   ["Processos críticos, capacidade operacional, integrações existentes, exposição, auditoria e crescimento esperado.",10],
-   ["Estratégia de expansão, restrições contratuais, integrações e metas de disponibilidade do ambiente.",7],
-   ["Capacidade financeira, fornecedores atuais, expectativa de ROI e cronograma desejado.",6],
-   ["Quantitativo de ativos, links, appliances existentes e necessidade de consolidação tecnológica.",5]
-  ]}
- ])),
- q1: enc(JSON.stringify([
-  {t:"A RFP pede tudo. Qual abordagem é mais defensável?",a:[
-   ["Separar requisitos por capacidade, maturidade e prioridade, indicando fases e dependências operacionais.",10],
-   ["Responder que todas as tecnologias cabem, desde que o cliente compre licenciamento completo.",3],
-   ["Remover itens avançados e manter apenas firewall e antivírus para simplificar operação.",4],
-   ["Tratar IA e SOAR como obrigatórios no primeiro dia para atender literalmente ao texto.",5]
-  ]},
-  {t:"Qual conjunto inicial é mais coerente com o ambiente?",a:[
-   ["EDR/XDR, VM, WAF para apps críticos, PAM para contas privilegiadas, logging/SIEM proporcional e serviços de operação.",10],
-   ["NDR completo, UEBA avançado, DLP endpoint total, CASB e SOAR independente da equipe interna.",5],
-   ["Apenas observabilidade, pois disponibilidade é mais importante que segurança nesse cenário.",2],
-   ["Firewall de grande porte e mais VPN; o restante entra depois sem análise de risco.",4]
-  ]}
- ])),
- q3: enc(JSON.stringify([
-  {t:"O CFO pergunta: por que não comprar tudo agora?",a:[
-   ["Porque ferramenta sem processo vira custo recorrente; priorizamos risco crítico, operação possível e evolução mensurável.",10],
-   ["Porque tudo agora ficaria caro, então melhor cortar segurança e esperar o orçamento do ano seguinte.",3],
-   ["Porque a equipe de TI ainda não sabe operar, então nenhuma tecnologia deve ser contratada.",2],
-   ["Porque o fornecedor pode fazer desconto se tirarmos módulos menos visíveis para diretoria.",4]
-  ]},
-  {t:"Infra diz que não quer mais painel. Resposta mais adequada?",a:[
-   ["Concordo; integraremos alertas essenciais, definiremos playbooks e reduziremos ruído antes de ampliar escopo.",10],
-   ["Painel é inevitável, quanto mais console melhor, porque segurança precisa de profundidade.",3],
-   ["A solução deve ser operada só pelo fornecedor, sem envolver infra.",5],
-   ["Vamos manter tudo por e-mail, pois painel demais atrapalha operação.",4]
-  ]}
- ])),
- q4: enc(JSON.stringify([
-  {t:"Primeira ação diante dos quatro sinais?",a:[
-   ["Triar impacto: VPN e storage como continuidade, WAF/EDR como incidente, abrindo war room e contenção no FIN-023.",10],
-   ["Desligar a VPN e o WAF até entender tudo, pois disponibilidade pode esperar.",2],
-   ["Ignorar storage por enquanto e focar só no alerta de PowerShell.",5],
-   ["Aumentar licenças imediatamente; o problema principal parece falta de produto.",3]
-  ]},
-  {t:"Como corrigir a retenção impossível?",a:[
-   ["Recalcular EPS/GB-dia, separar logs críticos, aplicar tiering, compressão e retenções por classe.",10],
-   ["Reduzir tudo para 7 dias e avisar que auditoria geralmente não lê evidência.",1],
-   ["Guardar somente logs de firewall, porque são mais fáceis de explicar.",3],
-   ["Comprar storage sem rever fontes, parser, filtros e requisitos legais.",4]
-  ]}
- ])),
- q5: enc(JSON.stringify([
-  {t:"Recomendação final mais madura?",a:[
-   ["Plano faseado: quick wins, controles críticos, operação assistida, métricas, governança e expansão conforme maturidade.",10],
-   ["Big bang com todas as tecnologias no primeiro mês para acelerar retorno institucional.",4],
-   ["Adiar cibersegurança e focar só em inventário até o próximo ciclo orçamentário.",3],
-   ["Trocar todos os fornecedores por uma suíte única, mesmo sem validar integrações.",5]
-  ]},
-  {t:"Qual frase você NÃO deve dizer ao cliente?",a:[
-   ["Isso resolve 100% dos riscos, porque a solução tem IA e automação.",10],
-   ["Vamos medir redução de exposição, tempo de resposta e cobertura de ativos por fase.",2],
-   ["Há dependências operacionais; sem processo, a tecnologia perde valor.",1],
-   ["Precisamos validar criticidade, integrações e volumetria antes do desenho final.",1]
-  ]}
- ]))
+ q0: "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",
+ q1: "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",
+ q3: "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",
+ q4: "FjlxN2tlEhJiRDYpLCggKG8+wqTCoillOy8zJzs6bSY8MGkuR1FGRDBkOig8KCYsfGNqZX0ncHNvBBZgACY5PkBRQBY8Kyc1Oyc6NicgIiB/I3IgITwkJjYtPToeEFFZMTAsM3IPBhFucXR2c2YkKCM2KSMhYx4edBwSVz02IDNyPi4tYzMpKjJmN2k7LSw2MjFpLEZfQFc4IWdjfml+b29hZBc6NSImPCssYj4iICwSU11ELSE9IHxpCjMiYSk3OCc8IDU+bS1zICgwQQoSUjY3OS48IC02LygiJDsjci0ufxsSHW9pL11DQcObKSElYTcxPzMsMyfCosK8KXI+Kj1hYjYtLS9dWVxCfzc8MiIsJissYSNlLS8hKiB/KSdzMSwrV17DlcOVMGppD8KxJm8yKjIyMC0ncj06OyJiPSxpMldDX1l/JigtNixhfR5tZh59Ajc6IzYqIyFjHw98EFcWCAUPYTM9wqZ/Ji8yIDEiNztvPm0hMjY6Ph4QV0A2MCgvNiZvLzEuNiQ4J8K1wqogfyhiPSw/MEEQU1U6NzouIWdtc2NyamV9AyoqKiw+KyUsaToSQF1FLC0/JD4kKjE3JGYhPig9OiBxbRI8Jyx/VlVARComKDNyJj86MSDCocKmMGYhLCJ/KDQ6J8KjMVFZUxYsMS8oMSAqMTckaGUcKTw9KjHCqsKhPGMtOkRVEkU6NmkxICY/MDEiLyoxJz5pKn8vIyAmKDtTEFdbfy0kMTMqOzBtYxtpfx1wDyA8LDBzLSZ/Yl9FUy0XISQ+JW8sNjI2IDYyPWVvLyIrIGMsMVZAXV8xMGkiPSQ/LSwsIzE2Ij1pwqZ/Pic+Mzs6EkBAXzA2ICUzLSp/LsKgPiwyJ3xrY397bnNhADJCX0BCPio9JH5pIj4wYS8rPCk/OSM6OS19YwZ/dHl8G292emEiJis6YzIjN38lIMKkOzYuLX9jJD5BEFMWCRQHYTdpGB4FYScjOjIzJG88IiwnKicqW1RTUjpkLGE3MT8wMCjCocKmMGYiwrMtMyQhMm1pD0BZXUQ2ICglN2k/LSYiLzY+ZjEmISwkJjYxKC0SWV9GPic9LnIsby0qMiUqfzU7JDozOSM9JigyV15GU3FmFG1yEm0cLCw2Nz40cjo7MD8jNCZpOhJcW1U6KsKuICFlby8sKDVlMDVyKCM6PzYyMGk2XFRbVT4paTInKys2LiQoNjYpPCgiOiM2PGMuOkBRXhh9aGlzfmltDSYgwqHCpjBmNixvLCUtIzMgMVUQUVMxMCwzfGkfMCckZi0+MDc7byw4IDcqJDpcQ1tZMSUkJDw9IHNjLCc2fyU9JD8tLDBzIicrV0MSUjpkLC8mLCE7JjNmIzAoJiw8c20HAxBlf0BVRlMxwqPCqi5yLG82LSIvITooJiw8f8KkYicxJjxTQhJXMcKlJSghLG8vLDNmJzAqNz0gcW8fDj5lf0kSRhRlZGsCPSQgfyAuNDc2ITs7bz5tMDY3LDHDlcOTXRY2KTkuITrCoikmLXlnc2ZwKG1lbRkIYRs6UVFeVSooKDNyDB8Mb2EBB3AiOyhjfystPTcsLBJTQMObKy0qICFlbysqJDQsMSF+aSwwIDIhJjosw5FfElN/Niw1NyfCqMK8LGE2Ki1mMSUuLD4nfWFlfwMAHhZ9FiwyIiY8KyJhKyQ2NXIqIC0/JyciZ39gVUZTMcKjwqoucifCrDBjwqhmJjczJixhfwknIyYnO1cQVlN/MiYtJyQqKzEoJ2l/JSAgOzYuKzciLToeEF1ULS0uIMK1wqogfy8kISQzanIqOiw5LXMmaT5AQUdfKyE9NCAobzsmYSc3MicoLCE+ICc9NyZxEG0eFgRmGyQ2PDU2MWEyMDspcjkuLSxiICY9OhJUW1csZCxhOycpMDEsJzd/Nycsbz44Jjo3Ji1bURJEPjYoLDcnOzpjIikrLDM+PS5/IS00YygxRllVWXFmZWFjZW99Ci8nJjovJsKoOTohbHMCJcK2XxBWU38wLCI8ICw+LiQoMTpmNDvCrjgkLn9jIDhcX0BXfysrMzsuLsK4wqAuZiYwKCY7Lis4Iz9jLH9VX0RTLSooL8K1KGF/wophKWUrLyImbzsoYjUxKCxXEENDOmQnICEqKn8gLisqfyMkICvCtSMhOiJpPF1eRkQ+ZD8uMcKjYX0ebWYefQEnKD07LDBzIjk6XFFBFjMrLjJyLSp/JSg0ICgnPiVvOm0UAw1lf0JfW0V/N8KqLnImPH8uIC82fy8/OSAtOSM9NywsEkBTRD5kOiQ1PD0+LcKmJ2t9anJ9Y39vCz0wPDlbU1tTMTAsb3IPJi0mNicpM2Y3aRkPA2IgwqAmf0BVXlMpJSc1Nzpjfy4gNWUxwqU9aSwwLzA2Lmk6XFRCWTYqPW1yICs6LTUvIT4iN2VvPj0uOiAowrjDkV8eFi82IDc7JcKmOCouZiB/IyQsISsiMXMgO8KyRllRWSxkLSRyJyo4wrAiLypxZA9lbwRvATwuOS1TQhJFKys7IDUsbz4nKCUsMCgzJW8+IzY2MGk7VxBAUyktOiAgaSkwLTUjaX82Mzs8Oj9ucyUgM0ZCXRY6ZDkuPsKkOzYgIGYhOmYgLDs6I8KlwrAsZ30eEAcaf2YZLjYsbywmM2YrOiU3OjzCvj8rPGMtOkJfW0VzZCQgIWkhwrwsYcKvZT5mIjsmMigrISJpPsOVw5NdGH8XLCxyOyopKjInN38vPC4qLDnCoTxjLH9CX17DmystKiB+aTkwIMKrZjbCrGYzPCI6IzYyYyZ/RlFfVzEsJmE2Jm8vMS4kKTorM2dtAhA/f2MyfUYSCBZ9FTwgPmkrOiAoNcKmMGY3PyYrLGIjKiYtUxBdRjo2KCI7JiE+L2EoKn8vPComOygsJyZ2fR4QEFd9fmkaCWsMLSogNGUrNDsoKDogYiMsO39BVURTLS0tIDYsY38nLigqLGYiJj1/KS0+wq4nNl0cElUwKTwvOyouwrjCoC5mICcjMTw7NjsjcyZpNVNeV1o+ZC0kciogMTckKMKiwrwpfGtjf3xyf2NrDVdDQlksMChhPygmLGMiKTctIyYoYX8ELDAqLTpcRFcWPSskYTzCqiB/wqphKWUuMzdpOzogYj4iICwSVldELSUkJDw9LmRjwqhmKn83JyxvKygvcycsPFtDw5FZc2QtLjwmY38gLiswMS8xKMKowrwiYjZjKjBcRFdYwrjCpyZhIjsgLywzJSwwKDMlYX0QbnMYaxpBU1NaPjZpNT0tICxjLjVlPio3Ozs+PmIjIjs+ElESUjY2LDU9OyY+b2EhJC0nPD0mMSktczc7PlxDQlctwq4nIjsobzLCojkvKD5mNiw8OyhiPGMgMcOfU1tZcWZlYWZlb30XMycrLDYzO8KlMS4rMmPCoH9bXUJZLTAoLyYsY38uIDVlOj4xLDwsImI3Jmk+XlVAQj5kOSAgKG87KjMjMTA0OyhvOCgwMmM5wr1cWVFZfyFpMTc7Kz5jJSNlOSkxJmF/Di0+Nic2UVHDlcOVMGQsOTcqOisqNydlOyMkLG8sKDBzICYxQV9eXzslLSByLG8wMSgjKysnNihvPm0rPjMoPEZfHBQCaGkacBkuKjAgNGUyMzYoIcK4LDF/YyszXUFHUz42aTU9LSB/IiIjNiwpciw3KygwPSxpOhJRVUM+Ni0gIGkjPjYlKWU8KT85Izo5LXMnKH9XQUdfLyFpNcK7KiE2ICBoZ3NmZ2VvfR0tNyZpLFdCElg6JywyIcKoPTYsYSMofyUzOiAsbSUhIj86QRwSWz43aSI9JCB/MSQhNz5mwrtpPzo+IzcsaTtXXVNfLGppAMK1wqogfyckMCB/NTc7by8/LSMsOzxbX1xXM2QoLnI7JiwgLmYzPio7LS47ImxxHmV/aRJgUywrJTc3O28vMSgrIDY0PWkufxsSHW9pL11CQ0M6ZDwyJ8KoPTYsYTUgMmYzKiosPi1zJCwtUxBfVzYrO2EiOyosMMKiKWU2KzctJj45I31hZX8EHBIUDzYsMiHCqiB/LDEjNz4lOyYhPiFiOi45MEBEUxp/KSgycifCrDBjJSMzOmYxLCg+P2IjIjs+EkBdRSzCqT8kPmkqJzMtKTc+wqHCsSZvKCggcyZpOlxUQlk2Kj1hMSYiLzEuKyArLzYmYX8dMDosOzZWUVZTfzQ7JDEgPD5jJDcwNio7Kz0+P2IwLCcrW15HXzslLSRyLG8sJiYzNz4owrUoYX0QHy4e",
+ q5: "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"
 };
 let state=JSON.parse(localStorage.getItem("diarioBS")||'{"day":0,"done":[],"score":0,"answers":{},"arch":false}');
 const days=["Dia 1","Dia 2","Dia 3","Dia 4","Dia 5","Dia 6","Certificado"];
@@ -823,6 +801,8 @@ function showDay(i){
  if(i===6){document.getElementById("certPage").classList.add("active");checkCert();}
  else{state.day=i;document.getElementById("day"+i).classList.add("active");}
  save(); window.scrollTo({top:0,behavior:"smooth"});
+ const msgs=["Roberto Infra acabou de mandar: 'isso vai gerar mais console?'","Financeiro perguntou se ROI aceita PIX.","Jurídico pediu evidência antes mesmo da solução existir.","Diretoria perguntou se dá para colocar IA no nome do projeto."];
+ if(Math.random()>.55)setTimeout(()=>chaosToast(msgs[Math.floor(Math.random()*msgs.length)]),700);
 }
 function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
 function renderQuestions(key,elid,day){
@@ -839,7 +819,8 @@ function renderQuestions(key,elid,day){
     state.answers[`${day}-${qi}`]=op[1]; save();
     const fb=wrap.querySelector(".feedback");
     fb.className="feedback "+(op[1]>=10?"ok":"bad");
-    fb.textContent = dec(op[1]>=10 ? COMMENT_BANK.good : COMMENT_BANK.bad);
+    fb.innerHTML = `<b>${op[1]>=10 ? "Melhor decisão." : "Decisão parcialmente defensável, mas não é a melhor."}</b><div class="whybox">${op[2]}</div>`;
+    chaosToast(op[1]>=10 ? "Boa. O cliente fictício respirou por mais um dia." : "Alerta de consultoria: parece certo, mas tem pegadinha operacional.");
    };
    options.appendChild(btn);
   });
@@ -872,7 +853,10 @@ function checkArchitecture(){
  const excess=["SOAR avançado","CASB completo","NDR total","DLP total"].some(x=>Object.values(zones).flat().includes(x));
  if(!excess)points+=20;
  state.arch=points>=80; if(state.arch && !state.answers["2-0"])state.answers["2-0"]=10;
- const fb=document.getElementById("archFeedback");fb.className="feedback "+(state.arch?"ok":"bad");fb.textContent=state.arch?"Arquitetura coerente: cobre risco crítico sem vender uma nave espacial para atravessar a rua.":"Ainda tem lacuna ou excesso. Revise perímetro, endpoint, SOC e governança. E cuidado com o buffet livre de tecnologia.";
+ const fb=document.getElementById("archFeedback");fb.className="feedback "+(state.arch?"ok":"bad");
+ fb.innerHTML=`<b>${points}/100 pontos na arquitetura.</b>
+ <div class="arch-score"><div>Perímetro<br>${zones.perimetro.includes("WAF")&&zones.perimetro.includes("Firewall HA")?"20/20":"0/20"}</div><div>Endpoint<br>${zones.endpoint.includes("EDR/XDR")&&zones.endpoint.includes("PAM")?"20/20":"0/20"}</div><div>SOC<br>${zones.soc.includes("Logging/SIEM proporcional")&&zones.soc.includes("Playbooks")?"20/20":"0/20"}</div><div>Maturidade<br>${zones.maturidade.includes("VM")&&zones.maturidade.includes("Inventário")?"20/20":"0/20"}</div><div>Sem excesso<br>${!excess?"20/20":"0/20"}</div></div>
+ <div class="whybox">${dec(state.arch?ARCH_MSG.ok:ARCH_MSG.bad)}</div>`;
  save();
 }
 function finishDay(i){
@@ -927,6 +911,11 @@ function wrap(ctx,text,x,y,maxWidth,lineHeight){
 function downloadCert(){
  const name=(document.getElementById("studentName").value||"certificado").replace(/[^\w\-]+/g,"_");
  const a=document.createElement("a");a.href=document.getElementById("certCanvas").toDataURL("image/png");a.download=`certificado_${name}_diario_arquiteto.png`;a.click();
+}
+function chaosToast(msg){
+ const pop=document.getElementById("chaosPop"); if(!pop)return;
+ pop.textContent=msg; pop.classList.add("show");
+ clearTimeout(window.__chaosTimer); window.__chaosTimer=setTimeout(()=>pop.classList.remove("show"),2600);
 }
 function teamsSound(){
  const ac=new (window.AudioContext||window.webkitAudioContext)();
