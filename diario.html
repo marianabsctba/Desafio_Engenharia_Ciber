@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Call Que Poderia Ter Sido Um E-mail | Mariana BS .Inc</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+:root{
+  --ink:#1a1008;--ink2:#2e1f0e;--paper:#e8d5a3;--paper2:#dcc88a;--paper3:#f0e0b5;
+  --coffee:#7a5230;--coffee2:#5a3a1a;--red:#7a1515;--green:#1e4a2e;
+  --gold:#a07820;--blue:#1a3a4a;--rust:#8b3a1a;
+  --line:rgba(90,58,26,.18);--line2:rgba(90,58,26,.32);
+  --shadow:rgba(20,12,4,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── PAGE TEXTURE ── */
+body{
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+  background:#2a1e12;
+  min-height:100vh;
+  position:relative;
+}
+
+/* Worn leather cover background */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 20% 10%, #3d2812 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 90%, #251908 0%, transparent 55%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,transparent 98px,
+      rgba(0,0,0,.07) 99px,transparent 100px
+    ),
+    #1e1509;
+}
+
+.app{max-width:1080px;margin:auto;padding:28px;position:relative;z-index:1}
+
+/* ── PAPER BASE ── */
+.cover,.page,.panel,.certificate-card,.sidebar{
+  position:relative;
+  background:var(--paper3);
+  border-radius:2px;
+  overflow:hidden;
+}
+
+/* Paper grain overlay */
+.cover::before,.page::before,.panel::before,.sidebar::before,.certificate-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:.6;mix-blend-mode:multiply;
+}
+
+/* Ruled lines on pages */
+.page::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      rgba(100,65,30,.13) 31px,
+      rgba(100,65,30,.13) 32px
+    );
+  background-position:0 48px;
+}
+
+/* Left margin line */
+.page .page-inner::before{
+  content:"";position:absolute;left:52px;top:0;bottom:0;width:1px;
+  background:rgba(180,80,60,.22);pointer-events:none;
+}
+
+/* Coffee stain spots — different for each panel using nth tricks */
+.cover::after{
+  content:"";position:absolute;pointer-events:none;z-index:0;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(ellipse at 40% 45%,rgba(100,60,20,.12) 0%,rgba(100,60,20,.06) 45%,transparent 70%);
+  bottom:-30px;right:40px;
+  box-shadow:0 0 0 3px rgba(100,60,20,.07),0 0 0 6px rgba(100,60,20,.04);
+}
+
+/* ── BINDING / SPINE ── */
+.diary{
+  display:grid;grid-template-columns:240px 1fr;gap:0;
+  background:#1e1509;
+  border-radius:4px;
+  box-shadow:
+    -8px 0 24px rgba(0,0,0,.5),
+    8px 0 24px rgba(0,0,0,.5),
+    0 20px 60px rgba(0,0,0,.6),
+    inset 0 0 0 1px rgba(255,255,255,.04);
+  overflow:hidden;
+}
+
+.sidebar{
+  background:linear-gradient(180deg,#ddc88a,#cbb870 30%,#d4bf80 70%,#c8b468);
+  border-right:3px solid #8a6020;
+  box-shadow:inset -6px 0 18px rgba(0,0,0,.15), 4px 0 8px rgba(0,0,0,.3);
+  padding:22px 16px;
+  min-height:100%;
+}
+
+/* Binding holes */
+.sidebar::after{
+  content:"";position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);
+  width:100%;pointer-events:none;
+  background:
+    radial-gradient(circle 6px at 50% 80px,  rgba(0,0,0,.35) 50%,transparent 55%),
+    radial-gradient(circle 6px at 50% 220px, rgba(0,0,0,.35) 50%,transparent 55%),
+    radial-gradient(circle 6px at 50% 360px, rgba(0,0,0,.35) 50%,transparent 55%),
+    radial-gradient(circle 6px at 50% 500px, rgba(0,0,0,.35) 50%,transparent 55%),
+    radial-gradient(circle 6px at 50% 640px, rgba(0,0,0,.35) 50%,transparent 55%);
+}
+
+/* Main page area */
+main{
+  background:var(--paper3);
+  position:relative;
+}
+
+/* Binding shadow on page edge */
+main::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:22px;
+  background:linear-gradient(90deg,rgba(0,0,0,.18),transparent);
+  pointer-events:none;z-index:2;
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:88vh;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:28px;
+  align-items:center;
+  padding:8px 0 20px;
+}
+
+/* Cover page styling */
+.cover{
+  padding:44px 40px;
+  background:linear-gradient(160deg,#f2e4b8,#e8d490 40%,#edd89c 70%,#e0c87a);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.35),
+    4px 4px 0 #a07828,
+    8px 8px 0 rgba(120,90,20,.35),
+    inset 0 0 80px rgba(160,110,30,.08);
+  border:1px solid rgba(140,100,30,.4);
+  transform:rotate(-.8deg);
+}
+
+/* Yellowing at edges */
+.cover .cover-inner{
+  position:relative;z-index:1;
+}
+
+.stamp{
+  display:inline-block;
+  border:2.5px solid var(--red);
+  color:var(--red);
+  padding:6px 12px;
+  border-radius:3px;
+  transform:rotate(-6deg);
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-size:.82rem;
+  margin-bottom:22px;
+  background:rgba(255,255,255,.12);
+  box-shadow:inset 0 0 0 1px rgba(122,21,21,.15);
+  opacity:.85;
+}
+
+h1{
+  font-family:'IM Fell English',Georgia,serif;
+  font-size:clamp(2.2rem,5.5vw,4.4rem);
+  line-height:.94;
+  margin:0 0 16px;
+  font-weight:400;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+
+h2{
+  font-family:'IM Fell English',Georgia,serif;
+  font-size:clamp(1.4rem,3.5vw,2.4rem);
+  margin:0 0 14px;
+  font-weight:400;
+  color:var(--ink);
+}
+
+h3{font-size:1.2rem;margin:20px 0 8px;font-weight:700;color:var(--ink2)}
+p{font-size:1.02rem;line-height:1.7;color:var(--ink)}
+
+.subtitle{font-size:1.12rem;line-height:1.5;max-width:620px;color:var(--ink2)}
+
+/* ── PANEL (right side of hero) ── */
+.panel{
+  padding:30px;
+  background:linear-gradient(150deg,#efdfa8,#e8d490 60%,#dcc880);
+  border:1px solid rgba(140,100,30,.35);
+  box-shadow:0 18px 50px rgba(0,0,0,.28),inset 0 0 60px rgba(150,110,30,.06);
+  transform:rotate(.4deg);
+}
+
+/* ── TAGS & BUTTONS ── */
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+
+.tag{
+  border:1px solid rgba(90,58,26,.3);
+  background:rgba(255,255,255,.22);
+  padding:6px 11px;border-radius:2px;
+  font-weight:700;font-size:.85rem;
+  color:var(--ink2);
+}
+
+.btn{
+  border:0;
+  background:linear-gradient(160deg,#3d2510,#6b3e1a);
+  color:#f0e0b0;
+  padding:12px 18px;border-radius:3px;
+  font-weight:700;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12);
+  font-family:Georgia,serif;font-size:.95rem;
+  letter-spacing:.02em;
+  transition:all .15s;
+  position:relative;z-index:1;
+}
+.btn:hover{background:linear-gradient(160deg,#4d3018,#7a4822);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn.secondary{
+  background:rgba(255,255,255,.3);
+  color:var(--ink2);border:1px solid rgba(90,58,26,.35);
+  box-shadow:0 3px 10px rgba(0,0,0,.12);
+}
+.btn.secondary:hover{background:rgba(255,255,255,.45)}
+.btn.danger{background:linear-gradient(160deg,#4a0e0e,#7a2020)}
+.btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+
+/* ── NOTE / CALLOUT ── */
+.note{
+  background:rgba(255,255,255,.28);
+  border-left:4px solid var(--coffee);
+  padding:14px 16px;border-radius:0 3px 3px 0;
+  margin:14px 0;
+  font-style:italic;
+  color:var(--ink2);
+}
+
+/* ── SIDEBAR INTERNALS ── */
+.logo{
+  font-family:'IM Fell English',Georgia,serif;
+  font-weight:400;font-size:1.15rem;
+  margin-bottom:6px;color:var(--ink2);
+}
+
+.small{font-size:.84rem;opacity:.75;color:var(--ink2);font-style:italic}
+
+.progressbar{
+  height:8px;
+  background:rgba(0,0,0,.15);
+  border-radius:0;
+  overflow:hidden;margin:10px 0 16px;
+  border:1px solid rgba(0,0,0,.12);
+}
+.progressbar span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#8a6820,#4a8040);
+  transition:.5s;
+}
+
+.navbtn{
+  width:100%;display:flex;align-items:center;
+  justify-content:space-between;margin:5px 0;
+  padding:9px 10px;border-radius:2px;
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(90,58,26,.22);
+  cursor:pointer;font-weight:700;
+  color:var(--ink2);font-family:Georgia,serif;font-size:.9rem;
+  transition:all .12s;
+}
+.navbtn:hover{background:rgba(255,255,255,.42)}
+.navbtn.locked{opacity:.42;cursor:not-allowed}
+.navbtn.active{background:#2b1808;color:#e8d490;border-color:#4a2a08}
+
+/* ── PAGE (diary entry) ── */
+.page{
+  padding:38px 38px 38px 70px;
+  margin-bottom:0;
+  min-height:520px;
+  border-left:3px solid rgba(90,58,26,.2);
+  position:relative;
+}
+
+.page-inner{position:relative;z-index:1}
+
+/* Tape effect at top of page */
+.page .meta{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;position:relative;z-index:1;
+}
+.meta span{
+  font-weight:700;color:var(--coffee2);
+  background:rgba(255,255,255,.32);
+  border:1px solid rgba(90,58,26,.22);
+  border-radius:2px;padding:5px 9px;
+  font-size:.85rem;letter-spacing:.03em;
+}
+
+/* Day / entry active display */
+.day{display:none}.day.active{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── TEAMS SIMULATION ── */
+.teams{
+  border:1px solid rgba(90,58,26,.25);
+  border-radius:3px;padding:14px;
+  background:rgba(255,255,255,.22);margin:14px 0;
+  position:relative;z-index:1;
+}
+.callbar{
+  display:flex;gap:8px;align-items:center;justify-content:space-between;
+  background:#1e1e2e;color:white;border-radius:3px;
+  padding:9px 12px;margin-bottom:12px;
+  font-family:'Courier New',monospace;font-size:.88rem;
+}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#e55353;margin-right:6px}
+
+.speech{
+  max-width:720px;margin:10px 0;padding:12px 14px;
+  border-radius:0 3px 3px 3px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(90,58,26,.18);
+  position:relative;
+}
+.speech::before{
+  content:"";position:absolute;top:0;left:-7px;width:7px;height:14px;
+  background:rgba(255,255,255,.42);
+  clip-path:polygon(100% 0,100% 100%,0 0);
+  border-left:1px solid rgba(90,58,26,.18);
+}
+.speech.client{margin-left:28px}
+.speech.tech{background:rgba(220,240,225,.5)}
+.speech.fin{background:rgba(220,230,245,.5)}
+.speaker{font-weight:900;color:var(--blue);display:block;margin-bottom:3px;font-size:.88rem;letter-spacing:.03em}
+.audioBtn{font-family:Georgia,serif;border:1px solid rgba(90,58,26,.3);border-radius:2px;padding:6px 10px;background:rgba(100,80,200,.75);color:white;font-weight:700;cursor:pointer;font-size:.82rem}
+
+/* ── QUESTIONS ── */
+.question{
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(90,58,26,.22);
+  border-radius:2px;
+  padding:16px;margin:16px 0;
+  position:relative;z-index:1;
+}
+.options{display:grid;gap:8px;margin-top:10px}
+.option{
+  padding:11px 13px;border-radius:2px;
+  border:1px solid rgba(90,58,26,.22);
+  background:rgba(255,255,255,.38);
+  cursor:pointer;text-align:left;
+  font-family:Georgia,serif;font-size:.96rem;
+  color:var(--ink);transition:all .12s;
+}
+.option:hover{background:rgba(255,248,210,.7);border-color:rgba(90,58,26,.4)}
+.option.selected{outline:2.5px solid var(--gold);background:rgba(255,240,180,.6)}
+
+.feedback{display:none;margin-top:10px;padding:11px 13px;border-radius:2px;font-weight:700;font-style:italic;font-size:.92rem}
+.feedback.ok{display:block;background:rgba(210,235,215,.7);color:#12321e;border-left:3px solid #3a8050}
+.feedback.bad{display:block;background:rgba(235,210,210,.7);color:#401010;border-left:3px solid #9a2828}
+
+/* ── RFP PDF SIM ── */
+.pdfsim{
+  background:rgba(255,255,255,.3);
+  border:1px solid rgba(90,58,26,.25);
+  border-radius:2px;padding:18px;
+  font-family:Georgia,serif;
+  position:relative;z-index:1;
+}
+.pdfsim .clause{
+  border-bottom:1px dotted rgba(90,58,26,.2);
+  padding:9px 0;font-size:.97rem;
+}
+
+/* ── ARCHITECTURE BOARD ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.scorebox{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.scorebox div{
+  background:rgba(255,255,255,.35);
+  border:1px solid rgba(90,58,26,.22);
+  border-radius:2px;padding:10px;text-align:center;
+}
+.scorebox b{display:block;font-size:1.7rem;color:var(--coffee2)}
+
+.board{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;position:relative;z-index:1}
+.palette,.canvas{
+  min-height:360px;
+  border:1px dashed rgba(90,58,26,.38);
+  border-radius:2px;padding:12px;
+  background:rgba(255,255,255,.2);
+}
+.draggable,.placed{
+  padding:8px 11px;
+  background:rgba(255,248,210,.8);
+  border:1px solid rgba(90,58,26,.28);
+  border-radius:2px;margin:6px;cursor:grab;
+  font-weight:700;display:inline-block;
+  font-size:.88rem;
+  box-shadow:1px 2px 4px rgba(0,0,0,.1);
+  transition:transform .1s;
+}
+.draggable:hover{transform:rotate(-.5deg);box-shadow:2px 4px 8px rgba(0,0,0,.15)}
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.zone{
+  min-height:130px;
+  border:1px dashed rgba(31,78,95,.35);
+  border-radius:2px;padding:8px;
+  background:rgba(255,255,255,.28);
+}
+.zone h4{margin:0 0 5px;color:var(--blue);font-size:.9rem;letter-spacing:.02em}
+
+/* ── PRESENTER CARDS ── */
+.presenter{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0;position:relative;z-index:1}
+.person{
+  background:rgba(255,255,255,.32);
+  border:1px solid rgba(90,58,26,.22);
+  border-radius:2px;padding:12px;font-size:.92rem;
+}
+.person b{display:block;color:var(--red);margin-bottom:5px;font-size:.88rem;letter-spacing:.04em;text-transform:uppercase}
+
+/* ── INCIDENT LOG ── */
+.timeline{display:grid;gap:8px;position:relative;z-index:1}
+.logline{
+  font-family:'Courier New',monospace;
+  background:#1a1208;color:#d4c07a;
+  padding:10px 13px;border-radius:2px;
+  overflow:auto;font-size:.86rem;
+  border-left:3px solid #5a4010;
+}
+
+/* ── FORM ELEMENTS ── */
+.formrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;position:relative;z-index:1}
+input[type=text]{
+  padding:11px 13px;border-radius:2px;
+  border:1px solid rgba(90,58,26,.35);
+  background:rgba(255,255,255,.55);
+  font-size:.96rem;min-width:240px;
+  font-family:Georgia,serif;color:var(--ink);
+}
+input[type=text]:focus{outline:2px solid var(--gold);background:rgba(255,255,255,.75)}
+
+/* ── CERTIFICATE ── */
+.certificate-card{padding:22px;background:linear-gradient(150deg,#f0e4b8,#e8d490 60%,#dcc880)}
+#certCanvas{width:100%;max-width:880px;border-radius:2px;border:1px solid rgba(90,58,26,.3)}
+
+/* ── FOOTER ── */
+.footer{padding:28px;text-align:center;color:rgba(220,200,140,.6);font-style:italic;font-size:.9rem}
+
+/* ── SCORE BOX IN SIDEBAR ── */
+.scorebox.sidebar-scores{
+  grid-template-columns:1fr 1fr;
+  position:relative;z-index:1;
+}
+
+/* ── UTILITY ── */
+.hidden{display:none!important}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .hero,.diary,.grid2,.board{grid-template-columns:1fr}
+  .sidebar{min-height:auto}
+  .cover,.page{padding:20px}
+  .page{padding:20px 20px 20px 20px}
+  .page::after{display:none}
+  .scorebox,.presenter{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .scorebox,.presenter,.zones{grid-template-columns:1fr}
+  .app{padding:10px}
+  h1{font-size:2.2rem}
+  .callbar{flex-direction:column;align-items:flex-start}
+}
+
+/* Aged edge effect on hero cover */
+.cover .aged-edge{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 0% 50%,rgba(120,80,20,.12) 0%,transparent 40%),
+    radial-gradient(ellipse at 100% 50%,rgba(100,65,15,.1) 0%,transparent 40%),
+    radial-gradient(ellipse at 50% 0%,rgba(140,95,25,.08) 0%,transparent 35%),
+    radial-gradient(ellipse at 50% 100%,rgba(110,70,15,.14) 0%,transparent 40%);
+  z-index:0;
+  border-radius:inherit;
+}
+
+/* Handwritten underline on h2 inside pages */
+.page h2{
+  position:relative;display:inline-block;
+  padding-bottom:6px;margin-bottom:18px;
+}
+.page h2::after{
+  content:"";position:absolute;left:0;bottom:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--coffee2),transparent 80%);
+  opacity:.4;
+}
+
+/* Tape strips decorating nav */
+.navbtn.active::before{
+  content:"";position:absolute;left:-8px;top:50%;transform:translateY(-50%);
+  width:6px;height:22px;background:rgba(200,160,60,.5);border-radius:1px;
+}
+.navbtn{position:relative}
+
+/* Subtle coffee ring on panel */
+.panel .coffee-ring{
+  position:absolute;width:120px;height:120px;
+  border-radius:50%;
+  border:2px solid rgba(100,65,20,.1);
+  box-shadow:
+    0 0 0 5px rgba(100,65,20,.05),
+    0 0 0 8px rgba(100,65,20,.04),
+    inset 0 0 20px rgba(100,65,20,.06);
+  bottom:15px;right:25px;pointer-events:none;z-index:0;
+}
+
+/* Page number in corner */
+.page::before{
+  content:attr(data-page);
+  position:absolute;bottom:18px;right:24px;
+  font-family:'IM Fell English',Georgia,serif;
+  font-size:.85rem;color:rgba(90,58,26,.35);
+  pointer-events:none;z-index:1;font-style:italic;
+}
+
+/* Diagonal fold corner */
+.cover .fold{
+  position:absolute;bottom:0;right:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 0 36px 36px;
+  border-color:transparent transparent rgba(150,105,25,.4) transparent;
+  z-index:2;
+}
+
+/* Inside cover worn gradient strip */
+.sidebar .worn{
+  height:3px;background:linear-gradient(90deg,transparent,rgba(140,90,20,.3),transparent);
+  margin:8px 0;
+}
+</style>
+</head>
+<body>
+<div class="app">
+<section class="hero" id="home">
+  <div class="cover">
+    <div class="aged-edge"></div>
+    <div class="fold"></div>
+    <div class="cover-inner">
+      <div class="stamp">confidencialíssimo</div>
+      <h1>A Call Que Poderia Ter Sido Um E-mail</h1>
+      <p class="subtitle">Um diário interativo de arquitetura, maturidade, RFP, sizing e apresentações difíceis. O objetivo é simples: impedir que um ambiente fictício vire uma feira de buzzwords com boleto.</p>
+      <br>
+      <button class="btn" onclick="startGame()">Abrir o diário</button>
+      &nbsp;
+      <button class="btn secondary" onclick="resetAll()">Resetar progresso</button>
+      <br><br>
+      <p class="small">Mariana BS .Inc ... porque alguém precisa perguntar "qual problema estamos resolvendo?" antes de comprar trinta ferramentas.</p>
+    </div>
+  </div>
+  <div class="panel" style="padding:28px">
+    <div class="coffee-ring"></div>
+    <div style="position:relative;z-index:1">
+      <h2>Como funciona</h2>
+      <p><b>Nível de dificuldade:</b> hardcore enterprise. Muitas alternativas parecem defensáveis. O desafio é descobrir a mais madura para aquele contexto operacional específico.</p>
+      <p>Você passa por dias de trabalho em um caso fictício. Cada fase mede uma competência diferente: escuta, leitura de RFP, arquitetura, comunicação, priorização e defesa técnica.</p>
+      <div class="note"><b>Regra de ouro:</b> quase todas as alternativas parecem corretas. A pontuação vem da alternativa mais adequada ao contexto, maturidade e risco do cliente.</div>
+      <p>O certificado só libera após concluir todas as fases com aproveitamento mínimo de 70%.</p>
+    </div>
+  </div>
+</section>
+
+<section class="diary hidden" id="diary">
+  <aside class="panel sidebar">
+    <div style="position:relative;z-index:1">
+      <div class="logo">Mariana BS .Inc</div>
+      <div class="worn"></div>
+      <div class="small">Diário de campo ... edição café frio</div>
+      <div class="progressbar"><span id="progressFill"></span></div>
+      <div id="nav"></div>
+      <div class="scorebox sidebar-scores" style="grid-template-columns:1fr 1fr">
+        <div><b id="scoreNow">0</b><span>score</span></div>
+        <div><b id="doneNow">0/6</b><span>dias</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <section class="page day active" id="day0" data-page="1">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 1</span><span>A call</span><span>Escuta consultiva</span></div>
+      <h2>O cliente entrou no Teams. Deus nos abandonou por 47 minutos.</h2>
+      <div class="teams">
+        <div class="callbar"><span><span class="dot"></span>Microsoft Teams ... reunião em andamento</span><button class="audioBtn" onclick="teamsSound()">Som de entrada/saída</button></div>
+        <div class="speech client"><span class="speaker">Diretoria</span>"A presidência viu uma apresentação sobre IA e agora quer 'cibersegurança preditiva autônoma'. O orçamento... bom... vamos chamar de espiritualmente limitado."</div>
+        <div class="speech tech"><span class="speaker">Infra</span>"Hoje temos dois links internet, um firewall antigo em sofrimento emocional, VPN saturando segunda-feira às 08h e logs distribuídos em lugares que desafiam a arqueologia digital."</div>
+        <div class="speech client"><span class="speaker">Gestor de TI</span>"A gente também quer centralizar tudo. Segurança, rede, nuvem, observabilidade, café, impressão e felicidade corporativa... mas sem aumentar complexidade operacional."</div>
+        <div class="speech fin"><span class="speaker">Financeiro</span>"Precisamos justificar ROI rapidamente. A última solução comprada virou um painel caro que ninguém abre desde março."</div>
+        <div class="speech tech"><span class="speaker">Analista cansado</span>"Tem ferramenta mandando alerta para caixa postal compartilhada desde 2023. Se ela parar de funcionar talvez ninguém perceba."</div>
+        <div class="speech client"><span class="speaker">Jurídico</span>"Precisamos evidência de acesso privilegiado, rastreabilidade e retenção. E por favor não prometam 'risco zero' na apresentação. Da outra vez isso envelheceu muito rápido."</div>
+        <div class="speech fin"><span class="speaker">Diretoria</span>"Ah... e o fornecedor anterior falou que precisava de SIEM, SOAR, UEBA, NDR, XDR, CASB, DSPM, CNAPP e talvez um satélite em órbita baixa. Isso procede?"</div>
+      </div>
+      <div id="q-day0"></div>
+      <button class="btn" onclick="finishDay(0)">Concluir Dia 1</button>
+      </div>
+    </section>
+
+    <section class="page day" id="day1" data-page="2">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 2</span><span>RFP</span><span>Leitura com lupa e desconfiança</span></div>
+      <h2>A RFP chegou em PDF. O anexo contradiz o objeto. Tradição nacional.</h2>
+      <div class="pdfsim">
+        <h3>RFP ... versão FINAL_v12_agoraVai.pdf</h3>
+        <div class="clause"><b>Objeto:</b> contratação de solução integrada de segurança, observabilidade, resposta, governança e sustentação operacional para ambiente híbrido.</div>
+        <div class="clause"><b>Usuários:</b> 420 colaboradores, 110 terceiros, 35 contas privilegiadas, 280 endpoints Windows/Linux, 35 servidores virtualizados, 8 aplicações críticas.</div>
+        <div class="clause"><b>Cloud:</b> pequeno ambiente híbrido com workloads públicos e VPN site-to-site.</div>
+        <div class="clause"><b>Compliance:</b> LGPD, auditoria anual, rastreabilidade de acessos privilegiados e retenção mínima de evidências.</div>
+        <div class="clause"><b>Operação:</b> equipe interna composta por 3 pessoas; sem SOC dedicado; atendimento crítico fora do horário comercial.</div>
+        <div class="clause"><b>Rede:</b> dois links internet, firewall legado sem HA, VPN frequentemente saturada, ausência de inventário confiável.</div>
+        <div class="clause"><b>Exigências:</b> gestão de vulnerabilidades, proteção endpoint, resposta a incidentes, visibilidade centralizada, segmentação mínima, proteção de aplicações web e redução de exposição.</div>
+        <div class="clause"><b>Pegadinha clássica:</b> a RFP exige SIEM, SOAR, UEBA, NDR, DLP, CASB, DSPM, CNAPP, IA, automação total e retenção massiva... sem aumentar equipe.</div>
+        <div class="clause"><b>Anexo financeiro:</b> "priorizar quick wins e baixo impacto operacional no primeiro ano".</div>
+      </div>
+      <div id="q-day1"></div>
+      <button class="btn" onclick="finishDay(1)">Concluir Dia 2</button>
+      </div>
+    </section>
+
+    <section class="page day" id="day2" data-page="3">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 3</span><span>Arquitetura</span><span>Drag and drop</span></div>
+      <h2>O Visio da dor: monte uma arquitetura sem criar um monumento ao excesso.</h2>
+      <p>Arraste os componentes para as zonas adequadas. Não precisa usar tudo. Usar tudo é exatamente como nasce um ambiente impossível de operar.</p>
+      <div class="board">
+        <div class="palette" id="palette"></div>
+        <div class="canvas">
+          <div class="zones">
+            <div class="zone" data-zone="perimetro"><h4>Perímetro / Entrada</h4></div>
+            <div class="zone" data-zone="endpoint"><h4>Endpoint / Identidade</h4></div>
+            <div class="zone" data-zone="soc"><h4>SOC / Logs / Resposta</h4></div>
+            <div class="zone" data-zone="maturidade"><h4>Maturidade / Governança</h4></div>
+          </div>
+        </div>
+      </div>
+      <div id="archFeedback" class="feedback"></div>
+      <button class="btn" onclick="checkArchitecture()">Validar arquitetura</button>
+      <button class="btn secondary" onclick="finishDay(2)">Concluir Dia 3</button>
+      </div>
+    </section>
+
+    <section class="page day" id="day3" data-page="4">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 4</span><span>Apresentação</span><span>Defesa técnica</span></div>
+      <h2>A apresentação: três pessoas, cinco objeções e uma planilha aberta no modo guerra.</h2>
+      <div class="presenter">
+        <div class="person"><b>Diretoria</b>Quer risco reduzido, custo justificável e nada que pareça brinquedo caro.</div>
+        <div class="person"><b>Infra</b>Quer operar sem virar plantão eterno e sem diagrama impossível.</div>
+        <div class="person"><b>Jurídico</b>Quer evidência, rastreabilidade e responsabilização.</div>
+      </div>
+      <div id="q-day3"></div>
+      <button class="btn" onclick="finishDay(3)">Concluir Dia 4</button>
+      </div>
+    </section>
+
+    <section class="page day" id="day4" data-page="5">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 5</span><span>Incidente</span><span>Priorização</span></div>
+      <h2>O ambiente reclamou. Não em palavras. Em alertas, timeout e gente gritando.</h2>
+      <div class="timeline">
+        <div class="logline">08:12:03 VPN_POOL exhausted ... usuários externos sem acesso.</div>
+        <div class="logline">08:17:44 WAF blocked /admin/export?debug=true ... possível exploração.</div>
+        <div class="logline">08:21:10 EDR suspicious powershell encoded command ... host FIN-023.</div>
+        <div class="logline">08:26:51 SIEM storage forecast: 7 days remaining ... retenção contratada: 180 dias.</div>
+      </div>
+      <div id="q-day4"></div>
+      <button class="btn" onclick="finishDay(4)">Concluir Dia 5</button>
+      </div>
+    </section>
+
+    <section class="page day" id="day5" data-page="6">
+      <div class="page-inner">
+      <div class="meta"><span>Dia 6</span><span>Board final</span><span>Sobrevivência corporativa</span></div>
+      <h2>O comitê quer conclusão. Você quer que o ambiente continue respirando.</h2>
+      <p>Última fase: consolidar uma recomendação executiva, tecnicamente defensável e compatível com maturidade real.</p>
+      <div id="q-day5"></div>
+      <button class="btn" onclick="finishDay(5)">Concluir Dia 6</button>
+      </div>
+    </section>
+
+    <section class="page day" id="certPage" data-page="✦">
+      <div class="page-inner">
+      <div class="meta"><span>Certificado</span><span>PNG</span><span>Mariana BS .Inc</span></div>
+      <h2>Certificado de conclusão</h2>
+      <div id="certLocked" class="note">Conclua todos os dias com aproveitamento mínimo de 70% para gerar o certificado.</div>
+      <div id="certUnlocked" class="hidden">
+        <div class="formrow">
+          <label for="studentName"><b>Digite seu nome:</b></label>
+          <input id="studentName" type="text" placeholder="Nome para o certificado"/>
+          <button class="btn" onclick="drawCert()">Gerar certificado PNG</button>
+          <button class="btn secondary" onclick="downloadCert()">Baixar PNG</button>
+        </div>
+        <div class="certificate-card"><canvas id="certCanvas" width="1400" height="990"></canvas></div>
+      </div>
+      </div>
+    </section>
+  </main>
+</section>
+</div>
+<div class="footer">A Call Que Poderia Ter Sido Um E-mail ... Mariana BS .Inc</div>
+
+<script>
+const SALT="MBSCI_2026_DIARIO_CAFE_FRIO_";
+const enc=s=>btoa(unescape(encodeURIComponent([...s].map((c,i)=>String.fromCharCode(c.charCodeAt(0)^SALT.charCodeAt(i%SALT.length))).join(""))));
+const dec=s=>[...decodeURIComponent(escape(atob(s)))].map((c,i)=>String.fromCharCode(c.charCodeAt(0)^SALT.charCodeAt(i%SALT.length))).join("");
+const COMMENT_BANK={
+ good: enc("Correto. A decisão considera maturidade operacional, volumetria, capacidade de sustentação e risco real do ambiente. Segurança sem contexto vira coleção de dashboards."),
+ bad: enc("Plausível... mas incompleto para o cenário. A alternativa ignora dependências operacionais, equipe disponível ou priorização de risco.")
+};
+const E={
+ q0: enc(JSON.stringify([
+  {t:"Qual leitura mais madura da call?",a:[
+   ["Iniciar por controles críticos, visibilidade proporcional, identidade privilegiada e evolução operacional gradual.",10],
+   ["Centralizar telemetria, ampliar detecção e criar camadas avançadas já na primeira fase do projeto.",6],
+   ["Concentrar orçamento em borda e disponibilidade antes de expandir monitoramento e governança.",5],
+   ["Adotar suíte integrada com múltiplos módulos para reduzir fragmentação futura da operação.",4]
+  ]},
+  {t:"O que perguntar antes de propor tecnologia?",a:[
+   ["Processos críticos, capacidade operacional, integrações existentes, exposição, auditoria e crescimento esperado.",10],
+   ["Estratégia de expansão, restrições contratuais, integrações e metas de disponibilidade do ambiente.",7],
+   ["Capacidade financeira, fornecedores atuais, expectativa de ROI e cronograma desejado.",6],
+   ["Quantitativo de ativos, links, appliances existentes e necessidade de consolidação tecnológica.",5]
+  ]}
+ ])),
+ q1: enc(JSON.stringify([
+  {t:"A RFP pede tudo. Qual abordagem é mais defensável?",a:[
+   ["Separar requisitos por capacidade, maturidade e prioridade, indicando fases e dependências operacionais.",10],
+   ["Responder que todas as tecnologias cabem, desde que o cliente compre licenciamento completo.",3],
+   ["Remover itens avançados e manter apenas firewall e antivírus para simplificar operação.",4],
+   ["Tratar IA e SOAR como obrigatórios no primeiro dia para atender literalmente ao texto.",5]
+  ]},
+  {t:"Qual conjunto inicial é mais coerente com o ambiente?",a:[
+   ["EDR/XDR, VM, WAF para apps críticos, PAM para contas privilegiadas, logging/SIEM proporcional e serviços de operação.",10],
+   ["NDR completo, UEBA avançado, DLP endpoint total, CASB e SOAR independente da equipe interna.",5],
+   ["Apenas observabilidade, pois disponibilidade é mais importante que segurança nesse cenário.",2],
+   ["Firewall de grande porte e mais VPN; o restante entra depois sem análise de risco.",4]
+  ]}
+ ])),
+ q3: enc(JSON.stringify([
+  {t:"O CFO pergunta: por que não comprar tudo agora?",a:[
+   ["Porque ferramenta sem processo vira custo recorrente; priorizamos risco crítico, operação possível e evolução mensurável.",10],
+   ["Porque tudo agora ficaria caro, então melhor cortar segurança e esperar o orçamento do ano seguinte.",3],
+   ["Porque a equipe de TI ainda não sabe operar, então nenhuma tecnologia deve ser contratada.",2],
+   ["Porque o fornecedor pode fazer desconto se tirarmos módulos menos visíveis para diretoria.",4]
+  ]},
+  {t:"Infra diz que não quer mais painel. Resposta mais adequada?",a:[
+   ["Concordo; integraremos alertas essenciais, definiremos playbooks e reduziremos ruído antes de ampliar escopo.",10],
+   ["Painel é inevitável, quanto mais console melhor, porque segurança precisa de profundidade.",3],
+   ["A solução deve ser operada só pelo fornecedor, sem envolver infra.",5],
+   ["Vamos manter tudo por e-mail, pois painel demais atrapalha operação.",4]
+  ]}
+ ])),
+ q4: enc(JSON.stringify([
+  {t:"Primeira ação diante dos quatro sinais?",a:[
+   ["Triar impacto: VPN e storage como continuidade, WAF/EDR como incidente, abrindo war room e contenção no FIN-023.",10],
+   ["Desligar a VPN e o WAF até entender tudo, pois disponibilidade pode esperar.",2],
+   ["Ignorar storage por enquanto e focar só no alerta de PowerShell.",5],
+   ["Aumentar licenças imediatamente; o problema principal parece falta de produto.",3]
+  ]},
+  {t:"Como corrigir a retenção impossível?",a:[
+   ["Recalcular EPS/GB-dia, separar logs críticos, aplicar tiering, compressão e retenções por classe.",10],
+   ["Reduzir tudo para 7 dias e avisar que auditoria geralmente não lê evidência.",1],
+   ["Guardar somente logs de firewall, porque são mais fáceis de explicar.",3],
+   ["Comprar storage sem rever fontes, parser, filtros e requisitos legais.",4]
+  ]}
+ ])),
+ q5: enc(JSON.stringify([
+  {t:"Recomendação final mais madura?",a:[
+   ["Plano faseado: quick wins, controles críticos, operação assistida, métricas, governança e expansão conforme maturidade.",10],
+   ["Big bang com todas as tecnologias no primeiro mês para acelerar retorno institucional.",4],
+   ["Adiar cibersegurança e focar só em inventário até o próximo ciclo orçamentário.",3],
+   ["Trocar todos os fornecedores por uma suíte única, mesmo sem validar integrações.",5]
+  ]},
+  {t:"Qual frase você NÃO deve dizer ao cliente?",a:[
+   ["Isso resolve 100% dos riscos, porque a solução tem IA e automação.",10],
+   ["Vamos medir redução de exposição, tempo de resposta e cobertura de ativos por fase.",2],
+   ["Há dependências operacionais; sem processo, a tecnologia perde valor.",1],
+   ["Precisamos validar criticidade, integrações e volumetria antes do desenho final.",1]
+  ]}
+ ]))
+};
+let state=JSON.parse(localStorage.getItem("diarioBS")||'{"day":0,"done":[],"score":0,"answers":{},"arch":false}');
+const days=["Dia 1","Dia 2","Dia 3","Dia 4","Dia 5","Dia 6","Certificado"];
+function save(){localStorage.setItem("diarioBS",JSON.stringify(state));renderNav();updateScore();}
+function startGame(){document.getElementById("home").classList.add("hidden");document.getElementById("diary").classList.remove("hidden");renderAll();}
+function resetAll(){localStorage.removeItem("diarioBS");location.reload();}
+function renderNav(){
+ const nav=document.getElementById("nav");nav.innerHTML="";
+ days.forEach((d,i)=>{
+  const b=document.createElement("button");b.className="navbtn";
+  const unlocked=i===0 || state.done.includes(i-1) || i===6 && canCert();
+  if(!unlocked)b.classList.add("locked");
+  if((i<6 && state.day===i)|| (i===6 && document.getElementById("certPage").classList.contains("active")))b.classList.add("active");
+  b.innerHTML=`<span>${d}</span><span>${unlocked?"":"🔒"}</span>`;
+  b.onclick=()=>{if(unlocked)showDay(i)};
+  nav.appendChild(b);
+ });
+}
+function showDay(i){
+ document.querySelectorAll(".day").forEach(x=>x.classList.remove("active"));
+ if(i===6){document.getElementById("certPage").classList.add("active");checkCert();}
+ else{state.day=i;document.getElementById("day"+i).classList.add("active");}
+ save(); window.scrollTo({top:0,behavior:"smooth"});
+}
+function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
+function renderQuestions(key,elid,day){
+ const box=document.getElementById(elid); if(!box || box.dataset.ready)return; box.dataset.ready=1;
+ const qs=JSON.parse(dec(E[key]));
+ qs.forEach((q,qi)=>{
+  const wrap=document.createElement("div");wrap.className="question";
+  wrap.innerHTML=`<h3>${q.t}</h3><div class="options"></div><div class="feedback"></div>`;
+  const opts=shuffle(q.a); const options=wrap.querySelector(".options");
+  opts.forEach((op,oi)=>{
+   const btn=document.createElement("button");btn.className="option";btn.textContent=op[0];
+   btn.onclick=()=>{
+    [...options.children].forEach(c=>c.classList.remove("selected"));btn.classList.add("selected");
+    state.answers[`${day}-${qi}`]=op[1]; save();
+    const fb=wrap.querySelector(".feedback");
+    fb.className="feedback "+(op[1]>=10?"ok":"bad");
+    fb.textContent = dec(op[1]>=10 ? COMMENT_BANK.good : COMMENT_BANK.bad);
+   };
+   options.appendChild(btn);
+  });
+  box.appendChild(wrap);
+ });
+}
+function renderPalette(){
+ const p=document.getElementById("palette"); if(p.dataset.ready)return; p.dataset.ready=1;
+ const items=["WAF","EDR/XDR","VM","PAM","Logging/SIEM proporcional","Firewall HA","SOAR avançado","CASB completo","NDR total","Playbooks","Inventário","DLP total"];
+ items.forEach(it=>{
+  const d=document.createElement("div");d.className="draggable";d.draggable=true;d.textContent=it;d.dataset.item=it;
+  d.ondragstart=e=>e.dataTransfer.setData("text/plain",it);
+  p.appendChild(d);
+ });
+ document.querySelectorAll(".zone").forEach(z=>{
+  z.ondragover=e=>e.preventDefault();
+  z.ondrop=e=>{
+   e.preventDefault();const it=e.dataTransfer.getData("text/plain");
+   const el=document.createElement("span");el.className="placed";el.textContent=it;el.onclick=()=>el.remove();z.appendChild(el);
+  };
+ });
+}
+function checkArchitecture(){
+ const zones={};document.querySelectorAll(".zone").forEach(z=>zones[z.dataset.zone]=[...z.querySelectorAll(".placed")].map(x=>x.textContent));
+ let points=0;
+ if(zones.perimetro.includes("WAF")&&zones.perimetro.includes("Firewall HA"))points+=20;
+ if(zones.endpoint.includes("EDR/XDR")&&zones.endpoint.includes("PAM"))points+=20;
+ if(zones.soc.includes("Logging/SIEM proporcional")&&zones.soc.includes("Playbooks"))points+=20;
+ if(zones.maturidade.includes("VM")&&zones.maturidade.includes("Inventário"))points+=20;
+ const excess=["SOAR avançado","CASB completo","NDR total","DLP total"].some(x=>Object.values(zones).flat().includes(x));
+ if(!excess)points+=20;
+ state.arch=points>=80; if(state.arch && !state.answers["2-0"])state.answers["2-0"]=10;
+ const fb=document.getElementById("archFeedback");fb.className="feedback "+(state.arch?"ok":"bad");fb.textContent=state.arch?"Arquitetura coerente: cobre risco crítico sem vender uma nave espacial para atravessar a rua.":"Ainda tem lacuna ou excesso. Revise perímetro, endpoint, SOC e governança. E cuidado com o buffet livre de tecnologia.";
+ save();
+}
+function finishDay(i){
+ if(i===2 && !state.arch){alert("Valide a arquitetura antes de concluir. O datacenter fictício agradece.");return;}
+ if(i!==2){
+  const needed=[`${i}-0`,`${i}-1`]; if(!needed.every(k=>state.answers[k]!==undefined)){alert("Responda todas as decisões do dia.");return;}
+ }
+ if(!state.done.includes(i))state.done.push(i);
+ if(i<5)showDay(i+1); else showDay(6);
+ save();
+}
+function updateScore(){
+ let vals=Object.values(state.answers); let total=vals.reduce((a,b)=>a+Number(b),0); let max=Object.keys(state.answers).length*10;
+ const pct=max?Math.round(total/max*100):0; state.score=pct;
+ document.getElementById("scoreNow").textContent=pct+"%";
+ document.getElementById("doneNow").textContent=state.done.length+"/6";
+ document.getElementById("progressFill").style.width=Math.min(100,(state.done.length/6)*100)+"%";
+}
+function canCert(){return state.done.length>=6 && state.score>=70;}
+function checkCert(){
+ document.getElementById("certLocked").classList.toggle("hidden",canCert());
+ document.getElementById("certUnlocked").classList.toggle("hidden",!canCert());
+ if(canCert())setTimeout(drawCert,100);
+}
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h+= (h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24);}return ("00000000"+(h>>>0).toString(16)).slice(-8).toUpperCase();}
+function drawCert(){
+ const name=(document.getElementById("studentName").value||"Participante").trim();
+ const c=document.getElementById("certCanvas"),ctx=c.getContext("2d");
+ ctx.fillStyle="#f6ecd1";ctx.fillRect(0,0,c.width,c.height);
+ for(let i=0;i<220;i++){ctx.fillStyle=`rgba(90,55,22,${Math.random()*0.08})`;ctx.beginPath();ctx.arc(Math.random()*c.width,Math.random()*c.height,Math.random()*3,0,7);ctx.fill();}
+ ctx.strokeStyle="#6b4428";ctx.lineWidth=18;ctx.strokeRect(48,48,c.width-96,c.height-96);
+ ctx.strokeStyle="#b9892c";ctx.lineWidth=4;ctx.strokeRect(78,78,c.width-156,c.height-156);
+ ctx.fillStyle="#2b2118";ctx.textAlign="center";
+ ctx.font="bold 54px Georgia";ctx.fillText("CERTIFICADO DE CONCLUSÃO",c.width/2,170);
+ ctx.font="28px Georgia";ctx.fillText("A Call Que Poderia Ter Sido Um E-mail",c.width/2,225);
+ ctx.font="24px Georgia";ctx.fillText("Diário interativo de arquitetura, maturidade, RFP e defesa técnica",c.width/2,265);
+ ctx.font="bold 58px Georgia";ctx.fillStyle="#5b231b";ctx.fillText(name,c.width/2,390);
+ ctx.fillStyle="#2b2118";ctx.font="25px Georgia";
+ wrap(ctx,"concluiu o desafio com avaliação prática em escuta consultiva, mensuração de tecnologias, leitura crítica de RFP, arquitetura de redes e cibersegurança, priorização de incidentes e apresentação executiva tecnicamente defensável.",c.width/2,450,1040,36);
+ const date=new Date().toLocaleDateString("pt-BR"); const h=hashStr(name+date+state.score+JSON.stringify(state.done));
+ ctx.font="bold 28px Georgia";ctx.fillText(`Aproveitamento: ${state.score}%`,c.width/2,610);
+ ctx.font="22px Georgia";ctx.fillText(`Data de conclusão: ${date}  |  Hash: ${h}`,c.width/2,655);
+ ctx.font="italic 48px Georgia";ctx.fillStyle="#6b4428";ctx.fillText("Mariana BS .Inc",c.width/2,760);
+ ctx.font="20px Georgia";ctx.fillStyle="#2b2118";ctx.fillText("Instrutora",c.width/2,795);
+ ctx.font="18px Georgia";ctx.fillText("Competências: sizing, maturidade, arquitetura, governança, comunicação e sobrevivência corporativa.",c.width/2,885);
+}
+function wrap(ctx,text,x,y,maxWidth,lineHeight){
+ let words=text.split(" "),line="";
+ for(let n=0;n<words.length;n++){let test=line+words[n]+" "; if(ctx.measureText(test).width>maxWidth&&n>0){ctx.fillText(line,x,y);line=words[n]+" ";y+=lineHeight}else line=test}
+ ctx.fillText(line,x,y);
+}
+function downloadCert(){
+ const name=(document.getElementById("studentName").value||"certificado").replace(/[^\w\-]+/g,"_");
+ const a=document.createElement("a");a.href=document.getElementById("certCanvas").toDataURL("image/png");a.download=`certificado_${name}_diario_arquiteto.png`;a.click();
+}
+function teamsSound(){
+ const ac=new (window.AudioContext||window.webkitAudioContext)();
+ [520,660,440].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.type="sine";o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.001,ac.currentTime+i*.13);g.gain.exponentialRampToValueAtTime(.18,ac.currentTime+i*.13+.03);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+i*.13+.12);o.start(ac.currentTime+i*.13);o.stop(ac.currentTime+i*.13+.14);});
+}
+function renderAll(){
+ renderQuestions("q0","q-day0",0);renderQuestions("q1","q-day1",1);renderQuestions("q3","q-day3",3);renderQuestions("q4","q-day4",4);renderQuestions("q5","q-day5",5);
+ renderPalette();renderNav();updateScore();showDay(state.day||0);
+}
+renderAll();
+</script>
+</body>
+</html>
